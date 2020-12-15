@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "368039439318",
+    "firebase_url": "https://fevertracker-4bf99.firebaseio.com",
+    "project_id": "fevertracker-4bf99",
+    "storage_bucket": "fevertracker-4bf99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368039439318:android:9ac5c1d827549bc1dc9277",
+        "android_client_info": {
+          "package_name": "com.example.fevertracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368039439318-oe1s7grsf3mhc5fs4sfv9t1e33jpt9hd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fevertracker",
+            "certificate_hash": "6e7da3f1eb30dbbc496d7ba25fb8fb7038e50265"
+          }
+        },
+        {
+          "client_id": "368039439318-l524npbo39q1h8api7sphrbpks896m64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCvayX5xNZCxW_J4hyX4v6GFo6pQaH1gI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368039439318-l524npbo39q1h8api7sphrbpks896m64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

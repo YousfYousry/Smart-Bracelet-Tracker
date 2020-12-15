@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <bitmap android:src="@drawable/button_image"/>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <gradient android:angle="90" android:startColor="#33E3E3E9" android:centerColor="#663F51B4" android:endColor="#33E3E3E9"/>
+        </shape>
+    </item>
+</layer-list>

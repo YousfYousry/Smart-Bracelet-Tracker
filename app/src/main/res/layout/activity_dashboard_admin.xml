@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Admin.DashboardAdmin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/comdelta" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/colorAccent"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="17dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:layout_toStartOf="@+id/profilePicture"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_toLeftOf="@+id/profilePicture">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="Admin dashboard" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"/>
+                    <TextView
+                        android:id="@+id/id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:alpha="0.8"
+                        android:textColor="@color/colorAccent"
+                        android:text="6 items" />
+
+                </LinearLayout>
+
+
+<!--                <FrameLayout-->
+<!--                    android:layout_width="130dp"-->
+<!--                    android:layout_height="130dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:padding="3dp"-->
+<!--                    android:layout_margin="9dp"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:background="@drawable/circle">-->
+
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:id="@+id/profilePictureAdmin"-->
+<!--                        android:src="@drawable/avatar"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent" />-->
+<!--                </FrameLayout>-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/adminpic"
+                    android:background="@drawable/circleforadmin"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginEnd="0dp" />
+
+            </RelativeLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:onClick="realTimeMap"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/track" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Real time Tracking\nfor all users"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    app:cardElevation="6dp"-->
+<!--                    app:cardCornerRadius="12dp"-->
+<!--                    android:layout_margin="12dp"-->
+<!--                    android:foreground="?attr/selectableItemBackground"-->
+<!--                    android:stateListAnimator="@anim/animation"-->
+<!--                    android:clickable="true">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="17dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_gravity="center">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="100dp"-->
+<!--                            android:scaleType="fitCenter"-->
+<!--                            android:src="@drawable/geofencing" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Set Geo-fencing"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:textColor="#000000"-->
+<!--                            android:textSize="14sp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:onClick="searchByPlaceMap"
+                    android:layout_margin="12dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/searchbyplace2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Search by place\nfor users"
+                            android:gravity="center"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:onClick="findUsers"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/finduser" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Find user"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:onClick="announcement"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/announcement" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Announcement"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:onClick="logout"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/logoutpic" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Log out"
+                            android:gravity="center"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:onClick="qrtoscan"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:stateListAnimator="@anim/animation"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="17dp"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/qrtoupdate" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Qr to update user\nstatus"
+                            android:gravity="center"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    app:cardElevation="6dp"-->
+<!--                    app:cardCornerRadius="12dp"-->
+<!--                    android:layout_margin="12dp"-->
+<!--                    android:onClick="LocationHistory"-->
+<!--                    android:foreground="?attr/selectableItemBackground"-->
+<!--                    android:stateListAnimator="@anim/animation"-->
+<!--                    android:clickable="true">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="17dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_gravity="center">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="100dp"-->
+<!--                            android:scaleType="fitCenter"-->
+<!--                            android:src="@drawable/locationhistory" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Location history"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:textColor="#000000"-->
+<!--                            android:textSize="14sp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

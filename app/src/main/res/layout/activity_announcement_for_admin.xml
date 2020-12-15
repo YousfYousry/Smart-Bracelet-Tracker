@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Admin.announcement">
+
+    <FrameLayout
+        android:id="@+id/dummy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <LinearLayout
+        android:id="@+id/select"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:elevation="20dp"
+        android:background="@drawable/tool_bar_shadow"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/abc_vector_test"
+            android:onClick="back"
+            android:background="@drawable/ripple_effect_oval" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:onClick="paint"
+            android:scaleType="centerInside"
+            android:src="@drawable/paint"
+            android:background="@drawable/ripple_effect_oval" />
+<!--        -->
+<!--        <ImageButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="10dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/ic_more_vert_black_24dp"-->
+<!--            android:background="@drawable/ripple_effect_oval" />-->
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dummy">
+
+        <ListView
+            android:id="@+id/announcementList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:divider="@color/grey"
+            android:dividerHeight="1dp"
+            android:layout_gravity="center" />
+
+        <ScrollView
+            android:id="@+id/editMode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="17dp">
+
+                <com.example.fevertracker.CustomWidgets.CustomEditText
+                    android:id="@+id/announceTextE"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:padding="7dp"
+                    android:text=""
+                    android:fontFamily="serif-monospace"
+                    android:background="@android:color/transparent"
+                    android:inputType="textAutoCorrect|textMultiLine"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+                    android:onClick="cancel"
+                    android:text="Cancel"
+                    android:background="@drawable/ripple_effect_rec_no_background"
+                    android:textColor="#C90303" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_above="@+id/style"
+            android:onClick="Edit"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+        <LinearLayout
+            android:id="@+id/style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shadow_rec_no_corners">
+
+            <ImageButton
+                android:id="@+id/bold"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:onClick="bold"
+                android:src="@drawable/ic_format_bold_black_24dp"
+                android:background="@drawable/ripple_effect_rec_no_background" />
+
+            <ImageButton
+                android:id="@+id/italic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:onClick="italic"
+                android:src="@drawable/ic_format_italic_black_24dp"
+                android:background="@drawable/ripple_effect_rec_no_background" />
+
+            <ImageButton
+                android:id="@+id/underLine"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:onClick="underLine"
+                android:src="@drawable/ic_format_underlined_black_24dp"
+                android:background="@drawable/ripple_effect_rec_no_background" />
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp">
+
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_format_color_text_black_24dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorAccent" />
+
+                <ImageView
+                    android:id="@+id/textColor"
+                    android:layout_width="25dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#000000" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="textColor"
+                    android:id="@+id/textC"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ripple_effect_rec_no_background" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_format_color_fill_black_24dp"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorAccent" />
+
+                <ImageView
+                    android:id="@+id/backgroundColor"
+                    android:layout_width="25dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#FFFFFF" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="textBack"
+                    android:layout_gravity="center"
+                    android:id="@+id/textB"
+                    android:background="@drawable/ripple_effect_rec_no_background" />
+            </FrameLayout>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:onClick="removeAll"
+                android:src="@drawable/ic_format_clear_black_24dp"
+                android:background="@drawable/ripple_effect_rec_no_background" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="close"
+                android:src="@drawable/ic_close_black_24dp"
+                android:background="@drawable/ripple_effect_rec_no_background" />
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_above="@+id/style">
+
+            <LinearLayout
+                android:id="@+id/textColorlist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/shadow"
+                android:layout_marginBottom="0dp">
+
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#000000" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="black"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#f44235" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="red"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#2296f3" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="blue"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#4caf50" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="green"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#ffc100" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="yellow"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#9e9e9e" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="grey"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:layout_marginStart="70dp"
+            android:layout_above="@+id/style">
+
+            <LinearLayout
+                android:id="@+id/backgroundColorlist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/shadow">
+
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+
+                    <FrameLayout
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/dark_circle" />
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/white_circle" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="blackB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#ef9a9a" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="redB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#90caf9" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="blueB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#a5d6a7" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="greenB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#ffe082" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="yellowB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="#e0e0e0" />
+
+                    <ImageButton
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:onClick="greyB"
+                        android:background="@drawable/ripple_effect_oval_no_background" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </RelativeLayout>
+</RelativeLayout>

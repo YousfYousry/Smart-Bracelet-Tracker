@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="exit"
+    tools:context=".Activities.LocationHistory">
+
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:umanoPanelHeight="30dp"
+        app:umanoShadowHeight="0dp"
+        app:umanoFadeColor="#00FFFFFF"
+        android:gravity="bottom"
+        app:umanoOverlay="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp">
+
+        <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/mapTracker"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".Activities.LocationHistory"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Panel"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/dragger"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/new_shadow">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/sliding_up_panel_back" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/minus" />
+                </FrameLayout>
+            </FrameLayout>
+
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/title"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@+id/dragger"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    android:padding="5dp"-->
+            <!--                    android:background="@color/colorAccent">-->
+            <!--                    <TextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="Location stops for more than 3 min"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        android:textSize="15sp"-->
+            <!--                        android:layout_gravity="center"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:textColor="@color/colorPrimaryDark"/>-->
+            <!--                    <TextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="in the same area circle with raduis of 500 m"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        android:textSize="15sp"-->
+            <!--                        android:layout_gravity="center"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:textColor="@color/colorPrimaryDark"/>-->
+            <!--                </LinearLayout>-->
+
+            <RelativeLayout
+                android:id="@+id/locationsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:layout_below="@+id/dragger">
+
+                <ListView
+                    android:id="@+id/PlacesListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/grey"
+                    android:dividerHeight="1dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+    <FrameLayout
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="exit"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:layout_marginBottom="-1dp"
+        android:elevation="10dp"
+        style="@style/Base_ToolbarStyle"
+        android:orientation="horizontal"
+        tools:targetApi="lollipop">
+
+        <ImageButton
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/abc_vector_test"
+            android:onClick="back"
+            android:background="@drawable/ripple_effect_oval_no_background" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="?attr/actionBarSize">
+
+            <LinearLayout
+                android:id="@+id/selectDatesButton"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:orientation="horizontal"
+                android:onClick="popup"
+                android:background="@drawable/ripple_effect_rec_no_background"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/chooseDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:text="Choose date" />
+
+                <ImageView
+                    android:id="@+id/ChooseDateArrow"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/arrow_down_float"
+                    android:layout_marginStart="7dp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:visibility="visible"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:textColorHint="#6EFFFFFF"
+                android:textColor="#FFFFFFFF"
+                android:hint="Search..."
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:id="@+id/search_bar"
+            android:src="@drawable/ic_search_black_24dp"
+            android:onClick="search_bar"
+            android:background="@drawable/ripple_effect_oval_no_background" />
+
+        <ImageButton
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:onClick="show"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:background="@drawable/ripple_effect_oval_no_background" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/DatesListFrame"
+        android:layout_width="150dp"
+        android:elevation="10dp"
+        android:background="@drawable/list_back_ground"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="0dp"
+        android:layout_marginStart="?attr/actionBarSize"
+        tools:targetApi="lollipop">
+
+        <ListView
+            android:id="@+id/DatesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/grey"
+            android:dividerHeight="1dp"
+            android:layout_gravity="center"
+            android:textAlignment="center" />
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background = "@drawable/progress"/>
+</RelativeLayout>
+

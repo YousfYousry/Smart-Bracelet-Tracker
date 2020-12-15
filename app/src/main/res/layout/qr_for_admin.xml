@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bot"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:text="Click here to start QR scanner" />
+
+
+    </FrameLayout>
+
+    <!--<com.budiyev.android.codescanner.CodeScannerView-->
+        <!--android:layout_below="@+id/item1"-->
+        <!--android:layout_above="@+id/bot"-->
+        <!--android:id="@+id/scanner_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:autoFocusButtonColor="@android:color/white"-->
+        <!--app:autoFocusButtonVisible="true"-->
+        <!--app:flashButtonColor="@android:color/white"-->
+        <!--app:flashButtonVisible="true"-->
+        <!--app:frameColor="@android:color/white"-->
+        <!--app:frameCornersSize="50dp"-->
+        <!--app:frameAspectRatioWidth="1"-->
+        <!--app:frameAspectRatioHeight="1"-->
+        <!--app:frameThickness="2dp"-->
+        <!--app:maskColor="#77000000"/>-->
+    <!--&lt;!&ndash;app:frameSize="0.75"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:frameCornersRadius="0dp"&ndash;&gt;-->
+
+    <LinearLayout
+        android:id="@+id/bot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginLeft="17dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="17dp"
+            android:text="The user should scane one of the following qr to update his status"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="notI"
+                android:textColor="@color/colorAccent"
+                android:background="#006633"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:text="Not confirmed QR" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="17dp"
+                android:onClick="Sus"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#B98B00"
+                android:text="Suspected QR" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ff0000"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:onClick="Infected"
+                android:text="Confirmed QR"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

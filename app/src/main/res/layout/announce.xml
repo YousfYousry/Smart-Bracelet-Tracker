@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/announceText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:fontFamily="serif-monospace"
+        android:gravity="left"
+        android:padding="7dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:visibility="gone"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textColor="#A8000000"
+        android:textSize="12sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/announceText">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <ImageButton
+            android:id="@+id/deletePost"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_delete_black_24dp"
+            android:background="@drawable/ripple_effect_oval_no_background" />
+        <ImageButton
+            android:id="@+id/ecitPost"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_edit_black"
+            android:background="@drawable/ripple_effect_oval_no_background" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

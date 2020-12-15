@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500dp"
+    android:layout_height="wrap_content">
+
+    <item
+        android:id="@+id/item1"
+        android:title="Second" />
+
+    <item
+        android:id="@+id/item2"
+        android:title="Minute" />
+
+    <item
+        android:id="@+id/item3"
+        android:title="Hour" />
+
+</menu>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Format"
+        android:icon="@drawable/button"
+        android:title="Format"
+        app:showAsAction="always" />
+<!--    <item android:id="@+id/normal"-->
+<!--        android:icon="@drawable/button"-->
+<!--        android:title="Normal"-->
+<!--        android:showAsAction="always" />-->
+<!--    <item android:id="@+id/italic"-->
+<!--        android:icon="@drawable/button"-->
+<!--        android:title="Italic"-->
+<!--        android:showAsAction="always" />-->
+<!--    <item android:id="@+id/bold"-->
+<!--        android:icon="@drawable/button"-->
+<!--        android:title="Bold"-->
+<!--        android:showAsAction="always" />-->
+<!--    <item android:id="@+id/underline"-->
+<!--        android:icon="@drawable/button"-->
+<!--        android:title="Underline"-->
+<!--        android:showAsAction="always" />-->
+</menu>

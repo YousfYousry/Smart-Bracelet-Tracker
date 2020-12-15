@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Update user status to"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_Infected"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/qr_button"
+                android:clickable="true"
+                android:text="Infected"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_Suspicious"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/qr_button_2"
+                android:clickable="true"
+                android:text="Suspicious"
+                android:textColor="#A67F0B"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_Normal"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/qr_button"
+                android:clickable="true"
+                android:text="Normal"
+                android:textColor="@android:color/holo_green_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/fram1"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:background="@android:color/white"
+                android:visibility="invisible"/>
+
+            <FrameLayout
+                android:id="@+id/fram2"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/white" />
+
+            <FrameLayout
+                android:id="@+id/fram3"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:background="@android:color/white"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="310dp"
+        android:layout_height="310dp"
+        android:layout_gravity="center"
+        android:background="@drawable/qr_button"
+        android:layout_marginBottom="10dp" />
+
+
+</LinearLayout>
