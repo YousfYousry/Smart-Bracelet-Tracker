@@ -1,8 +1,19 @@
 package com.example.fevertracker.Classes;
 
+import android.net.Uri;
+
 public class userSearch {
     private String name, passport, id;
     private int status;
+    private Uri uri;
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
 
     public int getStatus() {
         return status;

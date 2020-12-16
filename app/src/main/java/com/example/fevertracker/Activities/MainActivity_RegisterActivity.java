@@ -105,7 +105,7 @@ public class MainActivity_RegisterActivity extends AppCompatActivity {
     }
 
     public void Register(View view) {
-        if (checkPermissions()) {
+//        if (checkPermissions()) {
             if (register) {
                 final String name = nameE.getText().toString().trim();
                 final String email = emailE.getText().toString().trim();
@@ -248,9 +248,9 @@ public class MainActivity_RegisterActivity extends AppCompatActivity {
                     }
                 });
             }
-        } else {
-            Toast.makeText(this, "Please accept permission first.", Toast.LENGTH_LONG).show();
-        }
+//        } else {
+//            Toast.makeText(this, "Please accept permission first.", Toast.LENGTH_LONG).show();
+//        }
     }
 
     public void Login(View view) {

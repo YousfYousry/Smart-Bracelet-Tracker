@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/V1"
+    style="@style/Widget.MaterialComponents.BottomAppBar"
     tools:context=".Activities.User.UserDashboard">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -407,21 +409,22 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         app:navigationIcon="@drawable/ic_menu"
         app:menu="@menu/bottom_app_bar"
         app:hideOnScroll="true"
-        app:title="check in"
-        app:backgroundTint="@color/colorPrimary" />
+        app:fabAlignmentMode="center"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/qrcode"
         android:onClick="qrPressed"
+        android:clickable="true"
+        app:srcCompat="@drawable/qrcode"
         app:backgroundTint="@color/solidDarkCircle"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:layout_anchor="@id/bottomAppBar"
+        android:focusable="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

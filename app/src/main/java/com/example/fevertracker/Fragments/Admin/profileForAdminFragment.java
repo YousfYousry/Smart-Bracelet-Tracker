@@ -31,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 import maes.tech.intentanim.CustomIntent;
 
 public class profileForAdminFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -103,7 +105,7 @@ public class profileForAdminFragment extends Fragment implements PopupMenu.OnMen
         userFound = Toast.makeText(context, "User's data is downloaded.", Toast.LENGTH_SHORT);
         userNotFound = Toast.makeText(context, "User was not found!", Toast.LENGTH_SHORT);
         EmptyText = Toast.makeText(context, "Please write Id first.", Toast.LENGTH_SHORT);
-        selectedImage = getView().findViewById(R.id.profilePictureAdmin);
+        selectedImage = Objects.requireNonNull(getView()).findViewById(R.id.profilePictureAdmin);
         if (localFile != null) {
             selectedImage.setImageURI(localFile);
         }
