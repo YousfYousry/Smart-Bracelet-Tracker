@@ -83,7 +83,7 @@ public class profileForAdminFragment extends Fragment implements PopupMenu.OnMen
             userNotFound = Toast.makeText(context, "User was not found!", Toast.LENGTH_SHORT);
             EmptyText = Toast.makeText(context, "Please write Id first.", Toast.LENGTH_SHORT);
 
-            name = getView().findViewById(R.id.Name);
+            name = Objects.requireNonNull(getView()).findViewById(R.id.Name);
             email = getView().findViewById(R.id.Email);
             phone = getView().findViewById(R.id.phone);
             adress = getView().findViewById(R.id.address);
@@ -119,47 +119,17 @@ public class profileForAdminFragment extends Fragment implements PopupMenu.OnMen
         passport = getView().findViewById(R.id.passport);
         PreviewMode = getView().findViewById(R.id.PreviewMode);
         nameB = getView().findViewById(R.id.nameB);
-        nameB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBottomSheet(name.getText().toString(), "Enter user's name", "name");
-            }
-        });
+        nameB.setOnClickListener(v -> createBottomSheet(name.getText().toString(), "Enter user's name", "name"));
         passportB = getView().findViewById(R.id.passportB);
-        passportB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBottomSheet(passport.getText().toString(), "Enter user's passport", "passport");
-            }
-        });
+        passportB.setOnClickListener(v -> createBottomSheet(passport.getText().toString(), "Enter user's passport", "passport"));
         emailB = getView().findViewById(R.id.emailB);
-        emailB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBottomSheet(email.getText().toString(), "Enter user's email", "email");
-            }
-        });
+        emailB.setOnClickListener(v -> createBottomSheet(email.getText().toString(), "Enter user's email", "email"));
         addressB = getView().findViewById(R.id.addressB);
-        addressB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBottomSheet(adress.getText().toString(), "Enter user's address", "address");
-            }
-        });
+        addressB.setOnClickListener(v -> createBottomSheet(adress.getText().toString(), "Enter user's address", "address"));
         phoneB = getView().findViewById(R.id.phoneB);
-        phoneB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBottomSheet(phone.getText().toString(), "Enter user's phone", "phone");
-            }
-        });
+        phoneB.setOnClickListener(v -> createBottomSheet(phone.getText().toString(), "Enter user's phone", "phone"));
         statusB = getView().findViewById(R.id.statusB);
-        statusB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopUp(status);
-            }
-        });
+        statusB.setOnClickListener(v -> showPopUp(status));
         updateInfo();
     }
 

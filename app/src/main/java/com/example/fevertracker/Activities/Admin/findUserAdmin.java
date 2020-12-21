@@ -62,7 +62,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
     EditText input_search;
     ProgressBar progressBar;
     LinearLayout qrButtonAdmin;
-    FrameLayout frame_container;
+    FrameLayout FrameContainer;
 
     //Vars
     Context context = this;
@@ -72,11 +72,11 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
     ArrayList<Long> Users = new ArrayList<>();
     ArrayList<userSearch> toPrint = new ArrayList<>();
     com.example.fevertracker.Fragments.Admin.profileForAdminFragment profileForAdminFragment;
-    long max;
+    //    long max;
     int width, height;
     final int RequestCameraPermissionID = 1001;
     public static final String SHARED_PREFS = "sharedPrefs";
-    boolean search_opened = false, listeningStarted = false, cameraStarted = false, buttOpened = true, userFoundBool = false;
+    boolean search_opened = false, cameraStarted = false, buttOpened = true, userFoundBool = false;
 
     public void realTimeMap(View view) {
         if (!loadData("Id").isEmpty()) {
@@ -135,7 +135,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
     public void initViews() {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        frame_container = findViewById(R.id.frame_container);
+        FrameContainer = findViewById(R.id.frame_container);
         qrButtonAdmin = findViewById(R.id.qrButtonAdmin);
 
         if (!loadData("Id").isEmpty()) {
@@ -149,22 +149,11 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         width = displayMetrics.widthPixels;
         userFound = findViewById(R.id.userFound);
         userFound.setOnItemClickListener((parent, view, position, id) -> userFoundFunc(Long.toString(Users.get(position))));
-        max = 0;
-        FirebaseDatabase.getInstance().getReference().child("Member").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Member").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount() > max) {
-                    max = dataSnapshot.getChildrenCount();
-                }
-                if (!listeningStarted) {
-                    startListening();
-                    progressBar.setVisibility(View.GONE);
-                    listeningStarted = true;
-                } else {
-                    if (!input_search.getText().toString().trim().isEmpty()) {
-                        getUsers();
-                    }
-                }
+                setUpSearch();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -173,7 +162,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         });
     }
 
-    public void startListening() {
+    public void setUpSearch() {
         input_search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -181,39 +170,117 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!input_search.getText().toString().trim().isEmpty()) {
-                    if (userFoundBool) {
-                        frame_container.setVisibility(View.GONE);
-                        userFound.setVisibility(View.VISIBLE);
-                    }
-                    getUsers();
-                } else {
-                    if (userFoundBool) {
-                        frame_container.setVisibility(View.VISIBLE);
-                        userFound.setVisibility(View.GONE);
-                    }
-                }
+                //                    if (userFoundBool) {
+                //                        frame_container.setVisibility(View.GONE);
+                //                        userFound.setVisibility(View.VISIBLE);
+                //                    }
+                //                    if (userFoundBool) {
+                //                        frame_container.setVisibility(View.VISIBLE);
+                //                        userFound.setVisibility(View.GONE);
+                //                    }
+                getUsers(input_search.getText().toString().trim().isEmpty());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!input_search.getText().toString().isEmpty()) {
-                    if (userFoundBool) {
-                        frame_container.setVisibility(View.GONE);
-                        userFound.setVisibility(View.VISIBLE);
-                    }
-                    getUsers();
-                } else {
-                    if (userFoundBool) {
-                        frame_container.setVisibility(View.VISIBLE);
-                        userFound.setVisibility(View.GONE);
-                    }
-                }
+//                if (!input_search.getText().toString().isEmpty()) {
+////                    if (userFoundBool) {
+////                        frame_container.setVisibility(View.GONE);
+////                        userFound.setVisibility(View.VISIBLE);
+////                    }
+//                    getUsers();
+//                } else {
+////                    if (userFoundBool) {
+////                        frame_container.setVisibility(View.VISIBLE);
+////                        userFound.setVisibility(View.GONE);
+////                    }
+//                    printAllUsers();
+//                }
             }
         });
     }
 
-    public void getUsers() {
+//    public void printAllUsers() {
+//        toPrint.clear();
+//        Users.clear();
+//        search_input = input_search.getText().toString();
+//        FirebaseDatabase.getInstance().getReference().child("Member").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                try {
+//                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+////                        if (ds.getKey() != null) {
+////                            if (isFound(search_input, ds.getKey())) {
+////                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+////                                    Users.add(Long.parseLong(ds.getKey()));
+////                                    String id = ds.getKey();
+////                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+////                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+////                                    int Status = 1;
+////                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+////                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+////                                    }
+//////                                    getUri(id,toPrint.size());
+////                                    toPrint.add(new userSearch(name, passport, id, Status));
+////                                }
+////                            } else if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null && isFound(search_input.toLowerCase().trim(), Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString().toLowerCase().trim())) {
+////                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+////                                    Users.add(Long.parseLong(ds.getKey()));
+////                                    String id = ds.getKey();
+////                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+////                                    String passport = "";
+////                                    if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null) {
+////                                        passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+////                                    }
+////                                    int Status = 1;
+////                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+////                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+////                                    }
+//////                                    getUri(id,toPrint.size());
+////                                    toPrint.add(new userSearch(name, passport, id, Status));
+////                                }
+////                            } else if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null && isFound(search_input, Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString().toLowerCase().trim())) {
+////                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+////                                    Users.add(Long.parseLong(ds.getKey()));
+////                                    String id = ds.getKey();
+////                                    String name = "";
+////                                    if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null) {
+////                                        name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+////                                    }
+////                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+////                                    int Status = 1;
+////                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+////                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+////                                    }
+//////                                    getUri(id,toPrint.size());
+////                                    toPrint.add(new userSearch(name, passport, id, Status));
+////                                }
+////                            }
+////                        }
+//                        if (ds.child("name").exists() && ds.child("passport").exists() && ds.child("state").exists() && ds.getKey() != null) {
+//                            String name = Objects.requireNonNull(ds.child("name").getValue()).toString(),
+//                                    passport = Objects.requireNonNull(ds.child("passport").getValue()).toString(), id = ds.getKey();
+//                            int status = getInt(ds.child("state").getValue());
+//                            toPrint.add(new userSearch(name, passport, id, status));
+//                            Users.add(getLong(ds.getKey()));
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//
+//                userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
+//                userFound.setAdapter(adapter);
+//                getUserPics();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//    }
+
+    public void getUsers(final boolean allUsers) {
         toPrint.clear();
         Users.clear();
         search_input = input_search.getText().toString();
@@ -222,49 +289,61 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        if (ds.getKey() != null) {
-                            if (isFound(search_input, ds.getKey())) {
-                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-                                    Users.add(Long.parseLong(ds.getKey()));
-                                    String id = ds.getKey();
-                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-                                    int Status = 1;
-                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-                                    }
-                                    toPrint.add(new userSearch(name, passport, id, Status));
-                                }
-                            } else if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null && isFound(search_input.toLowerCase().trim(), Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString().toLowerCase().trim())) {
-                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-                                    Users.add(Long.parseLong(ds.getKey()));
-                                    String id = ds.getKey();
-                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-                                    String passport = "";
-                                    if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null) {
-                                        passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-                                    }
-                                    int Status = 1;
-                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-                                    }
-                                    toPrint.add(new userSearch(name, passport, id, Status));
-                                }
-                            } else if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null && isFound(search_input, Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString().toLowerCase().trim())) {
-                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-                                    Users.add(Long.parseLong(ds.getKey()));
-                                    String id = ds.getKey();
-                                    String name = "";
-                                    if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null) {
-                                        name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-                                    }
-                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-                                    int Status = 1;
-                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-                                    }
-                                    toPrint.add(new userSearch(name, passport, id, Status));
-                                }
+//                        if (ds.getKey() != null) {
+//                            if (isFound(search_input, ds.getKey())) {
+//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+//                                    Users.add(Long.parseLong(ds.getKey()));
+//                                    String id = ds.getKey();
+//                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+//                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+//                                    int Status = 1;
+//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+//                                    }
+////                                    getUri(id,toPrint.size());
+//                                    toPrint.add(new userSearch(name, passport, id, Status));
+//                                }
+//                            } else if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null && isFound(search_input.toLowerCase().trim(), Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString().toLowerCase().trim())) {
+//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+//                                    Users.add(Long.parseLong(ds.getKey()));
+//                                    String id = ds.getKey();
+//                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+//                                    String passport = "";
+//                                    if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null) {
+//                                        passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+//                                    }
+//                                    int Status = 1;
+//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+//                                    }
+////                                    getUri(id,toPrint.size());
+//                                    toPrint.add(new userSearch(name, passport, id, Status));
+//                                }
+//                            } else if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null && isFound(search_input, Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString().toLowerCase().trim())) {
+//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
+//                                    Users.add(Long.parseLong(ds.getKey()));
+//                                    String id = ds.getKey();
+//                                    String name = "";
+//                                    if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null) {
+//                                        name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
+//                                    }
+//                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
+//                                    int Status = 1;
+//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
+//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
+//                                    }
+////                                    getUri(id,toPrint.size());
+//                                    toPrint.add(new userSearch(name, passport, id, Status));
+//                                }
+//                            }
+//                        }
+                        if (ds.child("name").exists() && ds.child("passport").exists() && ds.child("state").exists() && ds.getKey() != null) {
+                            String name = Objects.requireNonNull(ds.child("name").getValue()).toString(),
+                                    passport = Objects.requireNonNull(ds.child("passport").getValue()).toString(), id = ds.getKey();
+                            int status = getInt(ds.child("state").getValue());
+                            if (allUsers || id.contains(search_input) || name.contains(search_input) || passport.contains(search_input)) {
+                                toPrint.add(new userSearch(name, passport, id, status));
+                                Users.add(getLong(ds.getKey()));
                             }
                         }
                     }
@@ -272,9 +351,11 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
+//                userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
+//                userFound.setAdapter(adapter);
+//                getUserPics();
                 userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
                 userFound.setAdapter(adapter);
-                getUserPics();
             }
 
             @Override
@@ -283,29 +364,59 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         });
     }
 
-    int i;
+//    int i;
 
-    public void getUserPics() {
-        for (i = 0; i < toPrint.size(); i++) {
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads").child(toPrint.get(i).getId());
-            try {
-                final File localFile = File.createTempFile("images", "jpg");
-                storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                    try {
-                        toPrint.get(i).setUri(Uri.fromFile(localFile));
-                        userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
-                        userFound.setAdapter(adapter);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }).addOnFailureListener(exception -> {
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//    public void getUserPics() {
+//        for (i = 0; i < toPrint.size(); i++) {
+//            StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads").child(toPrint.get(i).getId());
+//            try {
+//                final File localFile = File.createTempFile("images", "jpg");
+//                storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+//                    try {
+//                        toPrint.get(i).setUri(Uri.fromFile(localFile));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }).addOnFailureListener(exception -> {
+//                });
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
+//        userFound.setAdapter(adapter);
+//    }
+
+//    public void getUri(String id, final int i) {
+//        FirebaseStorage.getInstance().getReference("uploads").child(id).getDownloadUrl().addOnSuccessListener(uri -> {
+//            // Got the download URL for 'users/me/profile.png'
+//            toPrint.get(i).setUri(uri);
+//
+////            generatedFilePath = downloadUri.toString(); /// The string(file link) that you need
+//        }).addOnFailureListener(exception -> {
+//            userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
+//            userFound.setAdapter(adapter);
+//            // Handle any errors
+//        });
+//    }
+
+    public int getInt(Object o) {
+        try {
+            return Integer.parseInt(o.toString());
+        } catch (Exception e) {
+            return 1;
         }
-
     }
+
+    public Long getLong(String o) {
+        try {
+            return Long.parseLong(o);
+        } catch (Exception e) {
+            return 0L;
+        }
+    }
+
 
 //    public boolean isNumeric(String s) {
 //        try {
@@ -353,7 +464,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
     }
 
     public void startCam() {
-        frame_container.setVisibility(View.VISIBLE);
+        FrameContainer.setVisibility(View.VISIBLE);
         userFound.setVisibility(View.GONE);
         qrScannerAdmin qrScanner = new qrScannerAdmin();
         qrScanner.setAdmin(findUserAdmin);
@@ -430,7 +541,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
             animationOut(qrButtonAdmin);
             buttOpened = false;
         }
-        frame_container.setVisibility(View.VISIBLE);
+        FrameContainer.setVisibility(View.VISIBLE);
         userFound.setVisibility(View.GONE);
     }
 
@@ -470,8 +581,11 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         if (!search_opened) {
             if (userFoundBool) {
                 animationIn(qrButtonAdmin);
+                FrameContainer.setVisibility(View.GONE);
+                userFound.setVisibility(View.VISIBLE);
                 buttOpened = true;
             }
+            getUsers(true);
             slideViewWidth(input_search, dpToPx(40), width - dpToPx(60), 500);
             input_search.setHint("Enter User's name, passport or Id.");
 //            showSoftKeyboard(input_search);
@@ -483,6 +597,8 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         if (search_opened) {
             if (userFoundBool) {
                 animationOut(qrButtonAdmin);
+                FrameContainer.setVisibility(View.VISIBLE);
+                userFound.setVisibility(View.GONE);
                 buttOpened = false;
             }
             hideKeyBoard(input_search);
@@ -518,7 +634,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
     }
 
     public void closeCam() {
-        frame_container.setVisibility(View.GONE);
+        FrameContainer.setVisibility(View.GONE);
         userFound.setVisibility(View.VISIBLE);
         cameraStarted = false;
     }

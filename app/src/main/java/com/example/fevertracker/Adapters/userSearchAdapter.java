@@ -10,9 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.example.fevertracker.Classes.userSearch;
 import com.example.fevertracker.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -37,9 +41,13 @@ public class userSearchAdapter extends ArrayAdapter<userSearch> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        String name = getItem(position).getName().trim(), passport = getItem(position).getPassport().trim(), id = getItem(position).getId().trim();
+        String name = getItem(position).getName().trim(), passport = getItem(position).getPassport().trim(),
+                id = getItem(position).getId().trim(), ImageUrl = getItem(position).getmImageUrl().trim();
         int status = getItem(position).getStatus();
-        Uri localUri = getItem(position).getUri();
+
+//        if (localUri == null) {
+//            localUri = Uri.parse("android.resource://"+mContext.getPackageName()+"/drawable/avatar");
+//        }
 
         int resource = 0;
         if (getItem(position).getStatus() == 1) {
@@ -68,13 +76,21 @@ public class userSearchAdapter extends ArrayAdapter<userSearch> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(localUri!=null) {
-            holder.UserPic.setImageURI(localUri);
-        }
+//        if(localUri!=null) {
+//        }
         holder.userName.setText(user.getName());
         holder.userPassport.setText(user.getPassport());
         holder.userId.setText(user.getId());
         holder.back.setBackgroundResource(resource);
+        if(!ImageUrl.isEmpty()) {
+            Picasso.get()
+                    .load(ImageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .fit()
+                    .into(holder.UserPic);
+        }
+//        holder.UserPic.setImageURI(localUri);
+
         return convertView;
     }
 }

@@ -46,6 +46,7 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.google.android.material:material:1.0.0-alpha1'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 //    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
@@ -55,6 +56,7 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services:8.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.android.support:recyclerview-v7:30.0.3'
 //    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.android.support:customtabs:30.0.0-alpha3'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
