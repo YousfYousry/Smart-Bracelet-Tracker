@@ -101,7 +101,7 @@
                 android:id="@+id/locationsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@color/backGroundColor"
                 android:layout_below="@+id/dragger">
 
                 <ListView
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/backGroundColor"
                     android:textSize="20sp"
                     android:text="Choose date" />
 

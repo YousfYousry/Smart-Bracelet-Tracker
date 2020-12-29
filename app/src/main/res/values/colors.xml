@@ -4,7 +4,8 @@
 <!--    <color name="colorPrimary">#782F5D87</color>-->
 
     <color name="colorPrimaryDark">#002a48</color>
-    <color name="colorAccent">#E3E3E9</color>
+    <color name="backGroundColor">#E3E3E9</color>
+    <color name="colorAccent">#FF2222</color>
     <color name="V1">#e4e4e4</color>
     <color name="white">#E3E3E9</color>
     <color name="V2">#d7f0ea</color>

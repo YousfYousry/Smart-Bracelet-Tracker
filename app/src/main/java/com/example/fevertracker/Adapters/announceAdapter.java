@@ -1,5 +1,6 @@
 package com.example.fevertracker.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Spanned;
 import android.view.Gravity;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 public class announceAdapter extends ArrayAdapter<Announce> {
 
     announcement anouncementC;
-    private Context mContext;
-    private int mResource;
+    private final Context mContext;
+    private final int mResource;
 
     public void setAnouncement(announcement anouncement) {
         this.anouncementC = anouncement;
@@ -39,6 +40,7 @@ public class announceAdapter extends ArrayAdapter<Announce> {
         mResource = resource;
     }
 
+    @SuppressLint("RtlHardcoded")
     @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -60,20 +62,10 @@ public class announceAdapter extends ArrayAdapter<Announce> {
             holder = (announceAdapter.ViewHolder) convertView.getTag();
         }
         if (holder.deletePost != null) {
-            holder.deletePost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    anouncementC.deletePost(position);
-                }
-            });
+            holder.deletePost.setOnClickListener(v -> anouncementC.deletePost(position));
         }
         if (holder.ecitPost != null) {
-            holder.ecitPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    anouncementC.ecitPost(position);
-                }
-            });
+            holder.ecitPost.setOnClickListener(v -> anouncementC.editPost(position));
         }
 
         holder.announce.setText(announce);
@@ -105,7 +97,7 @@ public class announceAdapter extends ArrayAdapter<Announce> {
             } else if (time >= 3600) {
                 time -= 3600;
                 hours += 1;
-            } else if (time >= 60) {
+            } else {
                 time -= 60;
                 minutes += 1;
             }

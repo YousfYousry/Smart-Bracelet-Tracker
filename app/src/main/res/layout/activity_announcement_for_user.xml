@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,36 +8,40 @@
 
     <LinearLayout
         android:id="@+id/toolbar"
+        style="@style/Base_ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="-1dp"
         android:elevation="5dp"
-        style="@style/Base_ToolbarStyle"
         android:orientation="horizontal"
         tools:targetApi="lollipop">
 
         <ImageButton
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
-            android:padding="10dp"
             android:layout_gravity="center"
+            android:background="@drawable/ripple_effect_oval"
+            android:onClick="back"
+            android:padding="10dp"
             android:scaleType="centerInside"
             android:src="@drawable/abc_vector_test"
-            android:onClick="back"
-            android:background="@drawable/ripple_effect_oval" />
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:text="Announcements"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Announcements"/>
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
@@ -49,10 +52,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_gravity="center"
         android:background="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:layout_gravity="center" />
+        android:paddingTop="5dp" />
 
 
     <ProgressBar
@@ -60,6 +64,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background = "@drawable/progress"/>
+        android:background="@drawable/progress" />
 
 </RelativeLayout>

@@ -415,19 +415,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         if (mImageUri != null) {
             StorageReference fileReference = FirebaseStorage.getInstance().getReference("uploads").child(loadData("Id"));
             fileReference.putFile(mImageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            profilePic = true;
-                            Toast.makeText(context, "Profile picture has been uploaded successfully", LENGTH_LONG).show();
-                        }
+                    .addOnSuccessListener(taskSnapshot -> {
+                        profilePic = true;
+                        Toast.makeText(context, "Profile picture has been uploaded successfully", LENGTH_LONG).show();
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(context, "Error while uploading profile picture", LENGTH_SHORT).show();
-                        }
-                    });
+                    .addOnFailureListener(exception -> Toast.makeText(context, "Error while uploading profile picture", LENGTH_SHORT).show());
         }
     }
 

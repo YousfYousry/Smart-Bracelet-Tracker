@@ -2,6 +2,8 @@ package com.example.fevertracker.Activities.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -10,7 +12,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +24,7 @@ import com.example.fevertracker.Dialogs.QrDialogForAdmin;
 import com.example.fevertracker.OldClasses.LocationActivity;
 import com.example.fevertracker.R;
 import com.example.fevertracker.Activities.MainActivity_RegisterActivity;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,15 +32,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
+
 import maes.tech.intentanim.CustomIntent;
 
-public class DashboardAdmin extends AppCompatActivity {
+public class DashboardAdmin extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
     File localFile = null;
     ImageView selectedImage;
     TextView name, id;
     String NotInfectedPassword = "", SuspectedPassword = "", InfectedPassword = "";
-    boolean doubleBackToExitPressedOnce = false;
+    boolean doubleBackToExitPressedOnce = false,fadeIn=false;
     public static final String SHARED_PREFS = "sharedPrefs";
+    RelativeLayout ToolbarContainer;
 
     public void realTimeMap(View view) {
         startActivity(new Intent(getApplicationContext(), RealTimeTracker.class));
@@ -60,7 +69,7 @@ public class DashboardAdmin extends AppCompatActivity {
     public void qrtoscan(View view) {
         QrData();
 
-        QrDialogForAdmin cdd=new QrDialogForAdmin(DashboardAdmin.this);
+        QrDialogForAdmin cdd = new QrDialogForAdmin(DashboardAdmin.this);
         cdd.show();
 
 //        notInfected exampleDialog = new notInfected();
@@ -80,12 +89,58 @@ public class DashboardAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_admin);
         selectedImage = findViewById(R.id.profilePicture);
+        ToolbarContainer = findViewById(R.id.ToolbarContainer);
+        fadeOutNoDelay(ToolbarContainer);
         name = findViewById(R.id.name);
         id = findViewById(R.id.id);
         saveData("in", "log");
+        AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
+        mAppBarLayout.addOnOffsetChangedListener(this);
 //        if (!loadData("Id").isEmpty()) {
 //            setUserInfo();
 //        }
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(offset) / (float) maxScroll;
+
+        if (percentage > 0.61) {
+            if(!fadeIn) {
+                fadeIn(ToolbarContainer);
+                fadeIn=true;
+            }
+        }else{
+            if(fadeIn) {
+                fadeOut(ToolbarContainer);
+                fadeIn=false;
+            }
+        }
+    }
+
+    public void fadeIn(View view) {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(1000);
+        fadeIn.setFillAfter(true);
+        view.startAnimation(fadeIn);
+    }
+
+    public void fadeOut(View view) {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new DecelerateInterpolator()); //and this
+        fadeOut.setDuration(1000);
+        fadeOut.setFillAfter(true);
+        view.startAnimation(fadeOut);
+    }
+
+    public void fadeOutNoDelay(View view) {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new DecelerateInterpolator()); //and this
+        fadeOut.setDuration(0);
+        fadeOut.setFillAfter(true);
+        view.startAnimation(fadeOut);
     }
 
     public void QrData() {
@@ -169,6 +224,7 @@ public class DashboardAdmin extends AppCompatActivity {
         }
         return sharedPreferences.getString(name, "");
     }
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -183,7 +239,7 @@ public class DashboardAdmin extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

@@ -9,6 +9,12 @@
 <!--        app:showAsAction="ifRoom" />-->
 
     <item
+        android:id="@+id/pic"
+        android:title="Edit profile picture"
+        android:contentDescription="description_more"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/more"
         android:title="Edit your profile"
         android:contentDescription="description_more"

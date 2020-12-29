@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -60,13 +61,13 @@ public class announcementForUser extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.child("announcement").getChildren()) {
                     if (ds.getKey() != null) {
                         if (dataSnapshot.child("announcement").child(ds.getKey()).getValue() != null) {
-                            posts.add(NumricOf(ds.getKey()));
+                            posts.add(NumericOf(ds.getKey()));
                         }
                     }
                 }
                 Collections.sort(posts, Collections.reverseOrder());
                 for (int i = 0; i < posts.size(); i++) {
-                    announce.add(new Announce(Html.fromHtml(dataSnapshot.child("announcement").child(Long.toString(posts.get(i))).getValue().toString()), posts.get(i)));
+                    announce.add(new Announce(Html.fromHtml(Objects.requireNonNull(dataSnapshot.child("announcement").child(Long.toString(posts.get(i))).getValue()).toString()), posts.get(i)));
                 }
 
                 announceAdapter arrayAdapter = new announceAdapter(context, R.layout.announce_user, announce);
@@ -87,7 +88,7 @@ public class announcementForUser extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public long NumricOf(String str) {
+    public long NumericOf(String str) {
         try {
             return Long.parseLong(str);
         } catch (Exception ignored) {

@@ -1,132 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Admin.DashboardAdmin">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/comdelta" />
 
-        <ImageView
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/colaps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@color/colorAccent"
-            android:layout_weight="1" />
-    </LinearLayout>
-    <ScrollView
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/comdelta"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/comdelta"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:id="@+id/ToolbarContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginRight="17dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Admin dashboard"
+                            android:textColor="@color/backGroundColor"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.8"
+                            android:text="6 items"
+                            android:textColor="@color/backGroundColor"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profilePicture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/circleforadmin"
+                            android:src="@drawable/adminpic" />
+                    </FrameLayout>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backGroundColor"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="17dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical"
-                    android:layout_toStartOf="@+id/profilePicture"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_toLeftOf="@+id/profilePicture">
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textColor="@color/colorAccent"
-                        android:text="Admin dashboard" />
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="10dp"/>
-                    <TextView
-                        android:id="@+id/id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:alpha="0.8"
-                        android:textColor="@color/colorAccent"
-                        android:text="6 items" />
-
-                </LinearLayout>
-
-
-<!--                <FrameLayout-->
-<!--                    android:layout_width="130dp"-->
-<!--                    android:layout_height="130dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:padding="3dp"-->
-<!--                    android:layout_margin="9dp"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:background="@drawable/circle">-->
-
-<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                        android:id="@+id/profilePictureAdmin"-->
-<!--                        android:src="@drawable/avatar"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent" />-->
-<!--                </FrameLayout>-->
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/adminpic"
-                    android:background="@drawable/circleforadmin"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginEnd="0dp" />
-
-            </RelativeLayout>
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="3"
+                android:layout_margin="5dp"
                 android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false">
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:rowCount="3">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="realTimeMap"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="realTimeMap"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -137,72 +143,38 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:gravity="center"
                             android:text="Real time Tracking\nfor all users"
-                            android:layout_marginTop="12dp"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    app:cardElevation="6dp"-->
-<!--                    app:cardCornerRadius="12dp"-->
-<!--                    android:layout_margin="12dp"-->
-<!--                    android:foreground="?attr/selectableItemBackground"-->
-<!--                    android:stateListAnimator="@anim/animation"-->
-<!--                    android:clickable="true">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:padding="17dp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_gravity="center">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="100dp"-->
-<!--                            android:scaleType="fitCenter"-->
-<!--                            android:src="@drawable/geofencing" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Set Geo-fencing"-->
-<!--                            android:layout_marginTop="12dp"-->
-<!--                            android:textColor="#000000"-->
-<!--                            android:textSize="14sp" />-->
-
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:onClick="searchByPlaceMap"
-                    android:layout_margin="12dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="searchByPlaceMap"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -213,35 +185,38 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Search by place\nfor users"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Search by place\nfor users"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="findUsers"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="findUsers"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -252,34 +227,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Find user"
                             android:layout_marginTop="12dp"
+                            android:text="Find user"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="announcement"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="announcement"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -290,34 +268,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Announcement"
                             android:layout_marginTop="12dp"
+                            android:text="Announcement"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="logout"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="logout"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -328,35 +309,38 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Log out"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Log out"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="qrtoscan"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="qrtoscan"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -367,57 +351,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Qr to update user\nstatus"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Qr to update user\nstatus"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_columnWeight="1"-->
-<!--                    android:layout_rowWeight="1"-->
-<!--                    app:cardElevation="6dp"-->
-<!--                    app:cardCornerRadius="12dp"-->
-<!--                    android:layout_margin="12dp"-->
-<!--                    android:onClick="LocationHistory"-->
-<!--                    android:foreground="?attr/selectableItemBackground"-->
-<!--                    android:stateListAnimator="@anim/animation"-->
-<!--                    android:clickable="true">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:padding="17dp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_gravity="center">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="100dp"-->
-<!--                            android:scaleType="fitCenter"-->
-<!--                            android:src="@drawable/locationhistory" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Location history"-->
-<!--                            android:gravity="center"-->
-<!--                            android:layout_marginTop="12dp"-->
-<!--                            android:textColor="#000000"-->
-<!--                            android:textSize="14sp" />-->
-
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-
             </GridLayout>
         </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

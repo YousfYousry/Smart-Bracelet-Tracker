@@ -8,78 +8,68 @@
 
     <RelativeLayout
         android:id="@+id/toolbar"
+        style="@style/Base_ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginBottom="-1dp"
         android:elevation="20dp"
         android:orientation="horizontal"
-        style="@style/Base_ToolbarStyle"
         tools:targetApi="lollipop">
-
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/abc_vector_test"
-            android:onClick="back"
             android:background="@drawable/ripple_effect_oval"
-            android:layout_marginStart="10dp" />
+            android:onClick="back"
+            android:scaleType="centerInside"
+            android:src="@drawable/abc_vector_test" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="Find User"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:text="Find User"/>
+            android:textSize="20sp" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginStart="50dp">
+            android:layout_marginRight="10dp">
 
             <EditText
-                android:layout_width="40dp"
-                android:textSize="15sp"
                 android:id="@+id/input_search"
-                android:layout_gravity="end"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="40dp"
-                android:textColorHint="@color/grey"
+                android:layout_gravity="end"
                 android:background="@drawable/edit_text_with_shadow"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorPrimaryDark"
                 android:paddingStart="15dp"
-                android:paddingEnd="40dp" />
-
-            <!--            android:hint="Enter User's name, passport or Id."-->
+                android:paddingLeft="15dp"
+                android:paddingEnd="40dp"
+                android:paddingRight="40dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/grey"
+                android:textSize="15sp" />
 
             <ImageView
+                android:id="@+id/search_bar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:scaleType="centerInside"
-                android:id="@+id/search_bar"
-                android:src="@drawable/ic_search_blue_24dp"
+                android:background="@drawable/ripple_effect_oval_no_background"
                 android:onClick="search_bar"
-                android:background="@drawable/ripple_effect_oval_no_background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_search_blue_24dp" />
         </FrameLayout>
 
-<!--        <ImageButton-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:scaleType="centerInside"-->
-<!--            android:src="@drawable/ic_more_vert_black_24dp"-->
-<!--            android:background="@drawable/ripple_effect_oval" />-->
     </RelativeLayout>
 
     <FrameLayout
@@ -87,8 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:elevation="20dp"
         android:background="#000000"
+        android:elevation="20dp"
         android:visibility="gone"
         tools:targetApi="lollipop" />
 
@@ -96,102 +86,49 @@
         android:id="@+id/userFound"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar" />
 
     <LinearLayout
         android:id="@+id/qrButtonAdmin"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:elevation="10dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:onClick="qrScanner"
-        android:background="@drawable/qr_button_admin"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/qr_button_admin"
+        android:elevation="10dp"
+        android:onClick="qrScanner"
+        android:orientation="horizontal"
         tools:targetApi="lollipop">
+
         <TextView
             android:id="@+id/enterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scan user's Qr"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/colorAccent"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginRight="10dp"
+            android:text="Scan user's Qr"
+            android:textColor="@color/backGroundColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginRight="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/qrcode"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/qrcode" />
     </LinearLayout>
-
-    <!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="1dp"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@drawable/button_for_search"-->
-<!--        android:layout_marginBottom="1dp">-->
-
-<!--        <ImageButton-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:onClick="qrScanner"-->
-<!--            android:background="@drawable/ripple_effect_rec_no_background" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:text="Scan user's QR"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="#000000"-->
-<!--            android:textSize="20sp" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="25dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:src="@drawable/application"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_toEndOf="@+id/text"-->
-<!--            android:layout_toRightOf="@+id/text"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:layout_marginStart="5dp" />-->
-<!--    </RelativeLayout>-->
-
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:srcCompat="@drawable/qrcode"-->
-<!--        android:onClick="qrScanner"-->
-<!--        app:backgroundTint="@color/colorPrimary"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="10dp" />-->
-
-
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:background = "@drawable/progress"/>
+        android:background="@drawable/progress"
+        android:visibility="gone" />
 </RelativeLayout>

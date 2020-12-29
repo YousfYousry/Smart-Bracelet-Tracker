@@ -718,13 +718,9 @@ public class searchByPlace extends AppCompatActivity implements OnMapReadyCallba
         /* We use an update listener which listens to each tick
          * and manually updates the height of the view  */
 
-        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation1) {
-                Integer value = (Integer) animation1.getAnimatedValue();
-                view.getLayoutParams().width = value.intValue();
-                view.requestLayout();
-            }
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().width = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
         });
 
         /*  We use an animationSet to play the animation  */
@@ -744,13 +740,9 @@ public class searchByPlace extends AppCompatActivity implements OnMapReadyCallba
         /* We use an update listener which listens to each tick
          * and manually updates the height of the view  */
 
-        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation1) {
-                Integer value = (Integer) animation1.getAnimatedValue();
-                view.getLayoutParams().height = value.intValue();
-                view.requestLayout();
-            }
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().height = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
         });
 
         /*  We use an animationSet to play the animation  */

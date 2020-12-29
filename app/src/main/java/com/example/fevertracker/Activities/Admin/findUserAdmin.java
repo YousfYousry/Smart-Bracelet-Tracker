@@ -200,7 +200,7 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
         });
     }
 
-//    public void printAllUsers() {
+    //    public void printAllUsers() {
 //        toPrint.clear();
 //        Users.clear();
 //        search_input = input_search.getText().toString();
@@ -279,8 +279,10 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
 //            }
 //        });
 //    }
+    boolean canNotify = false;
 
     public void getUsers(final boolean allUsers) {
+        canNotify = false;
         toPrint.clear();
         Users.clear();
         search_input = input_search.getText().toString();
@@ -289,57 +291,11 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                        if (ds.getKey() != null) {
-//                            if (isFound(search_input, ds.getKey())) {
-//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-//                                    Users.add(Long.parseLong(ds.getKey()));
-//                                    String id = ds.getKey();
-//                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-//                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-//                                    int Status = 1;
-//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-//                                    }
-////                                    getUri(id,toPrint.size());
-//                                    toPrint.add(new userSearch(name, passport, id, Status));
-//                                }
-//                            } else if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null && isFound(search_input.toLowerCase().trim(), Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString().toLowerCase().trim())) {
-//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-//                                    Users.add(Long.parseLong(ds.getKey()));
-//                                    String id = ds.getKey();
-//                                    String name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-//                                    String passport = "";
-//                                    if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null) {
-//                                        passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-//                                    }
-//                                    int Status = 1;
-//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-//                                    }
-////                                    getUri(id,toPrint.size());
-//                                    toPrint.add(new userSearch(name, passport, id, Status));
-//                                }
-//                            } else if (dataSnapshot.child(ds.getKey()).child("passport").getValue() != null && isFound(search_input, Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString().toLowerCase().trim())) {
-//                                if (!Users.contains(Long.parseLong(ds.getKey()))) {
-//                                    Users.add(Long.parseLong(ds.getKey()));
-//                                    String id = ds.getKey();
-//                                    String name = "";
-//                                    if (dataSnapshot.child(ds.getKey()).child("name").getValue() != null) {
-//                                        name = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("name").getValue()).toString();
-//                                    }
-//                                    String passport = Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("passport").getValue()).toString();
-//                                    int Status = 1;
-//                                    if (dataSnapshot.child(ds.getKey()).child("state").getValue() != null) {
-//                                        Status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(ds.getKey()).child("state").getValue()).toString());
-//                                    }
-////                                    getUri(id,toPrint.size());
-//                                    toPrint.add(new userSearch(name, passport, id, Status));
-//                                }
-//                            }
-//                        }
                         if (ds.child("name").exists() && ds.child("passport").exists() && ds.child("state").exists() && ds.getKey() != null) {
                             String name = Objects.requireNonNull(ds.child("name").getValue()).toString(),
-                                    passport = Objects.requireNonNull(ds.child("passport").getValue()).toString(), id = ds.getKey();
+                                    passport = Objects.requireNonNull(ds.child("passport").getValue()).toString(),
+                                    id = ds.getKey();
+
                             int status = getInt(ds.child("state").getValue());
                             if (allUsers || id.contains(search_input) || name.contains(search_input) || passport.contains(search_input)) {
                                 toPrint.add(new userSearch(name, passport, id, status));
@@ -350,10 +306,6 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
-//                userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
-//                userFound.setAdapter(adapter);
-//                getUserPics();
                 userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
                 userFound.setAdapter(adapter);
             }
@@ -363,43 +315,6 @@ public class findUserAdmin extends AppCompatActivity implements ZBarScannerView.
             }
         });
     }
-
-//    int i;
-
-//    public void getUserPics() {
-//        for (i = 0; i < toPrint.size(); i++) {
-//            StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads").child(toPrint.get(i).getId());
-//            try {
-//                final File localFile = File.createTempFile("images", "jpg");
-//                storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-//                    try {
-//                        toPrint.get(i).setUri(Uri.fromFile(localFile));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }).addOnFailureListener(exception -> {
-//                });
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
-//        userFound.setAdapter(adapter);
-//    }
-
-//    public void getUri(String id, final int i) {
-//        FirebaseStorage.getInstance().getReference("uploads").child(id).getDownloadUrl().addOnSuccessListener(uri -> {
-//            // Got the download URL for 'users/me/profile.png'
-//            toPrint.get(i).setUri(uri);
-//
-////            generatedFilePath = downloadUri.toString(); /// The string(file link) that you need
-//        }).addOnFailureListener(exception -> {
-//            userSearchAdapter adapter = new userSearchAdapter(getApplicationContext(), R.layout.search_users_adapter, toPrint);
-//            userFound.setAdapter(adapter);
-//            // Handle any errors
-//        });
-//    }
 
     public int getInt(Object o) {
         try {

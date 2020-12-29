@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.BottomAppBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/V1"
-    style="@style/Widget.MaterialComponents.BottomAppBar"
     tools:context=".Activities.User.UserDashboard">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/app_bar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
@@ -21,21 +20,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:statusBarScrim="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@android:color/transparent">
 
             <ImageView
                 android:id="@+id/comdelta"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
-                app:layout_collapseMode="parallax"
-                android:src="@drawable/comdelta" />
+                android:src="@drawable/comdelta"
+                app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:id="@+id/toolbar"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -50,39 +49,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:paddingTop="55dp"
-            android:paddingBottom="120dp"
-            android:orientation="vertical">
-
+            android:paddingBottom="120dp">
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="3"
                 android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false">
+                android:columnCount="2"
+                android:layout_margin="5dp"
+                android:columnOrderPreserved="false"
+                android:rowCount="3">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    android:onClick="realTimeMap"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop"
+                    android:focusable="true"
+                    android:onClick="realTimeMap">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -93,74 +94,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:gravity="center"
                             android:text="track Covid-19"
-                            android:layout_marginTop="12dp"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:layout_width="100dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_columnWeight="1"-->
-                <!--                    android:layout_rowWeight="1"-->
-                <!--                    app:cardElevation="6dp"-->
-                <!--                    app:cardCornerRadius="12dp"-->
-                <!--                    android:layout_margin="12dp"-->
-                <!--                    android:foreground="?attr/selectableItemBackground"-->
-                <!--                    android:stateListAnimator="@anim/animation"-->
-                <!--                    android:clickable="true">-->
-
-                <!--                    <LinearLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:orientation="vertical"-->
-                <!--                        android:padding="17dp"-->
-                <!--                        android:gravity="center"-->
-                <!--                        android:layout_gravity="center">-->
-
-                <!--                        <ImageView-->
-                <!--                            android:layout_width="match_parent"-->
-                <!--                            android:layout_height="100dp"-->
-                <!--                            android:scaleType="fitCenter"-->
-                <!--                            android:src="@drawable/geofencing" />-->
-
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="Your Geo-fence"-->
-                <!--                            android:layout_marginTop="12dp"-->
-                <!--                            android:textColor="#000000"-->
-                <!--                            android:textSize="14sp" />-->
-
-                <!--                    </LinearLayout>-->
-
-                <!--                </androidx.cardview.widget.CardView>-->
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:onClick="announcement"
-                    android:layout_margin="12dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop"
+                    android:focusable="true"
+                    android:onClick="announcement">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -171,35 +135,36 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Announcement"
                             android:layout_marginTop="12dp"
+                            android:text="Announcement"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="qrtoscan"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop"
+                    android:focusable="true"
+                    android:onClick="qrtoscan">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -210,36 +175,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Qr scanner to\n update status"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Qr scanner to\n update status"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="LocationHistory"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop"
+                    android:focusable="true"
+                    android:onClick="LocationHistory">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -250,37 +216,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Location history"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Location history"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:onClick="logout"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:stateListAnimator="@anim/animation"
-                    android:clickable="true">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp"
+                    tools:targetApi="lollipop"
+                    android:focusable="true"
+                    android:onClick="logout">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="17dp"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_gravity="center">
+                        android:orientation="vertical"
+                        android:padding="17dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -291,9 +257,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Log out"
-                            android:gravity="center"
                             android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Log out"
                             android:textColor="#000000"
                             android:textSize="14sp" />
 
@@ -308,9 +274,9 @@
 
     <FrameLayout
         android:id="@+id/State1Back"
-        android:visibility="invisible"
         android:layout_width="110dp"
         android:layout_height="110dp"
+        android:visibility="invisible"
         app:layout_anchor="@id/colaps"
         app:layout_anchorGravity="bottom|center"
         app:layout_collapseMode="pin" />
@@ -323,13 +289,13 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:elevation="20dp"
-        android:visibility="gone"
-        android:background="#000000"
-        android:layout_gravity="center"
-        android:onClick="empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#000000"
+        android:elevation="20dp"
+        android:onClick="empty"
+        android:visibility="gone"
         tools:targetApi="lollipop" />
     <!--    <FrameLayout-->
     <!--        android:id="@+id/pinFrame"-->
@@ -343,29 +309,68 @@
     <FrameLayout
         android:id="@+id/profileBack"
         android:layout_width="110dp"
-        android:elevation="10dp"
         android:layout_height="110dp"
-        tools:targetApi="lollipop"
-        android:background="@drawable/profile_back_ground">
+        android:background="@drawable/profile_back_ground"
+        android:elevation="10dp"
+        tools:targetApi="lollipop">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
             android:layout_gravity="center"
+            android:layout_margin="2dp"
             android:src="@drawable/avatar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/ripple_effect_oval_v2"
+                    android:onClick="addPic"
+                    android:src="@drawable/ic_add"
+                    tools:ignore="RtlHardcoded" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2" />
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout
         android:id="@+id/LinearText"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:elevation="6dp"
-        android:alpha="0"
-        android:layout_marginLeft="?attr/actionBarSize"
         android:layout_marginStart="?attr/actionBarSize"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:alpha="0"
+        android:elevation="6dp"
+        android:orientation="vertical"
         tools:targetApi="lollipop">
 
         <Space
@@ -377,12 +382,12 @@
             android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
             android:text="Name :   "
-            android:layout_marginStart="10dp" />
+            android:textColor="@color/backGroundColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="wrap_content"
@@ -393,12 +398,12 @@
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
             android:text="ID :   "
-            android:layout_marginStart="10dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="wrap_content"
@@ -408,23 +413,23 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
+        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        app:navigationIcon="@drawable/ic_menu"
-        app:menu="@menu/bottom_app_bar"
+        app:fabAlignmentMode="center"
         app:hideOnScroll="true"
-        app:fabAlignmentMode="center"/>
+        app:menu="@menu/bottom_app_bar"
+        app:navigationIcon="@drawable/ic_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="qrPressed"
         android:clickable="true"
-        app:srcCompat="@drawable/qrcode"
-        app:backgroundTint="@color/solidDarkCircle"
+        android:focusable="true"
+        android:onClick="qrPressed"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@id/bottomAppBar"
-        android:focusable="true" />
+        app:srcCompat="@drawable/qrcode" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

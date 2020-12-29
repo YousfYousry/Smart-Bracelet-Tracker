@@ -52,7 +52,7 @@
                 android:paddingLeft="10dp"
                 android:onClick="searchPlaceClicked"
                 android:background="@drawable/ripple_effect_rec"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/backGroundColor"
                 android:textSize="14sp"
                 android:text="Search for users by place name" />
 
@@ -66,7 +66,7 @@
                 android:gravity="center"
                 android:onClick="datePickerClicked"
                 android:background="@drawable/ripple_effect_rec"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/backGroundColor"
                 android:textSize="12sp"
                 android:text="Pick a date" />
 
@@ -252,7 +252,7 @@
                 android:id="@+id/UsersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@color/backGroundColor"
                 android:layout_below="@+id/dragger">
 
 
@@ -269,8 +269,6 @@
         </RelativeLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-
 
     <FrameLayout
         android:id="@+id/chooseRadius"

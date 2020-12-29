@@ -17,7 +17,7 @@
         android:paddingRight="15dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/backGroundColor"
         android:textSize="14sp"/>
     <Space
         android:layout_width="wrap_content"

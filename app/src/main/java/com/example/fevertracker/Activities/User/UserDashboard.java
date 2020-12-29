@@ -12,8 +12,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.PendingIntent;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,22 +19,17 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,29 +42,20 @@ import androidx.palette.graphics.Palette;
 import com.example.fevertracker.Activities.LocationHistory;
 import com.example.fevertracker.Activities.MainActivity_RegisterActivity;
 import com.example.fevertracker.Dialogs.QrDialogForUser;
-import com.example.fevertracker.Libraries.GeofenceHelper;
 import com.example.fevertracker.OldClasses.qrScannerForUser;
 import com.example.fevertracker.R;
 import com.example.fevertracker.Services.LocationService;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.Geofence;
-import com.google.android.gms.location.GeofencingClient;
-import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -79,13 +63,13 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.Objects;
 
 import maes.tech.intentanim.CustomIntent;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
 import static android.widget.Toast.LENGTH_LONG;
-import static com.example.fevertracker.Activities.MainActivity_RegisterActivity.DeviceAdress;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.fevertracker.OldClasses.LocationActivity.SHARED_PREFS;
 
 public class UserDashboard extends AppCompatActivity implements ZBarScannerView.ResultHandler, AppBarLayout.OnOffsetChangedListener {
@@ -119,6 +103,14 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
     public void empty(View view) {
     }
 
+    public void addPic(View view) {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1, 1)
+                .start(UserDashboard.this);
+        Toast.makeText(context, "Error while downloading profile picture", Toast.LENGTH_SHORT).show();
+    }
+
     public void realTimeMap(View view) {
         startActivity(new Intent(getApplicationContext(), RealTimeTrackerForUser.class));
         CustomIntent.customType(this, "left-to-right");
@@ -138,7 +130,7 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
     }
 
     public void logout(View view) {
-        if (isMyServiceRunning(LocationService.class)) {
+        if (isMyServiceRunning()) {
             stopService(serviceIntent);
         }
         if (!loadData("Id").isEmpty()) {
@@ -190,13 +182,18 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
 
         if (!Id.isEmpty()) {
             FirebaseDatabase.getInstance().getReference().child("Member").child(Id).addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
                         try {
-                            Name.setText("Name :   " + dataSnapshot.child("name").getValue().toString());
+                            if(dataSnapshot.child("name").exists()) {
+                                Name.setText("Name :   " + Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
+                            }else{
+                                Name.setText("Name :   ");
+                            }
                             id.setText("ID :   " + Id);
-                            status = Integer.parseInt(dataSnapshot.child("state").getValue().toString());
+                            status = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child("state").getValue()).toString());
                         } catch (Exception ignored) {
                         }
                     }
@@ -208,11 +205,11 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
                 }
             });
         }
-//
-//        serviceIntent = new Intent(this, LocationService.class);//*************************************************************************
-//        if (!isMyServiceRunning(LocationService.class)) {
-//            ContextCompat.startForegroundService(this, serviceIntent);
-//        }
+
+        serviceIntent = new Intent(this, LocationService.class);//*************************************************************************
+        if (!isMyServiceRunning()) {
+            ContextCompat.startForegroundService(this, serviceIntent);
+        }
 
         profilePicture = findViewById(R.id.profilePicture);
         setProfilePicture();
@@ -236,19 +233,17 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
         profileBack.setLayoutParams(State1BackParams);
         pinned = true;
 
-        State1Back.post(new Runnable() {
-            @Override
-            public void run() {
-                int[] location = new int[2];
-                State1Back.getLocationOnScreen(location);
-                x = location[0];
-                y = location[1] - dpToPx(50);
+        State1Back.post(() -> {
+            int[] location = new int[2];
+            State1Back.getLocationOnScreen(location);
+            x = location[0];
+            y = location[1] - dpToPx(50);
 //                animate(0);
-                profileBack.setLayoutParams(State1BackParams);
-                pinned = true;
-            }
+            profileBack.setLayoutParams(State1BackParams);
+            pinned = true;
         });
     }
+
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
@@ -277,7 +272,6 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
                     profileBack.setLayoutParams(State1BackParams);
                     pinned = true;
                 }
-
             }
         }
     }
@@ -297,13 +291,10 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
 
     private void dynamicToolbarColor() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.comdelta);
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(@Nullable Palette palette) {
-                int colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary);
-                collapsingToolbarLayout.setContentScrimColor(colorPrimary);
-                collapsingToolbarLayout.setStatusBarScrimColor(colorPrimary);
-            }
+        Palette.from(bitmap).generate(palette -> {
+            int colorPrimary = ContextCompat.getColor(context, R.color.colorPrimary);
+            collapsingToolbarLayout.setContentScrimColor(colorPrimary);
+            collapsingToolbarLayout.setStatusBarScrimColor(colorPrimary);
         });
     }
 
@@ -316,23 +307,7 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
             e.printStackTrace();
         }
 
-        storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                profilePicture.setImageURI(Uri.fromFile(localFile));
-                // Local temp file has been created
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-//                CropImage.activity()
-//                        .setGuidelines(CropImageView.Guidelines.ON)
-//                        .setAspectRatio(1, 1)
-//                        .start(UserDashboard.this);
-//                Toast.makeText(context, "Error while downloading profile picture", Toast.LENGTH_SHORT).show();
-            }
-        });
+        storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> profilePicture.setImageURI(Uri.fromFile(localFile))).addOnFailureListener(exception -> Toast.makeText(this, "You don't have a profile picture!", LENGTH_LONG).show());
     }
 
     public void qrPressed(View view) {
@@ -360,17 +335,11 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
 
     public boolean IsNetworkEnabled() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).
-
+        //we are connected to a network
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).
                 getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).
-
-                        getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            return true;
-        } else {
-            return false;
-        }
+                        getState() == NetworkInfo.State.CONNECTED;
     }
 
     private boolean isLocationEnabled() {
@@ -378,6 +347,30 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
         );
+    }
+
+    private void uploadFile(Uri mImageUri) {
+        if (mImageUri != null) {
+            StorageReference fileReference = FirebaseStorage.getInstance().getReference("uploads").child(loadData("Id"));
+
+            fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+//                        FirebaseDatabase.getInstance().getReference().child("Member").child(loadData("Id")).child("ProfileImage").setValue();
+                        Toast.makeText(context, "Profile picture has been uploaded successfully", LENGTH_LONG).show();
+                    }).addOnFailureListener(exception -> Toast.makeText(context, "Error while uploading profile picture", LENGTH_SHORT).show());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (result != null) {
+                profilePicture.setImageURI(result.getUri());
+                uploadFile(result.getUri());
+            }
+        }
     }
 
     @Override
@@ -390,26 +383,6 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
                 startQrCam();
             }
         }
-
-//        int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
-//        if (requestCode == FINE_LOCATION_ACCESS_REQUEST_CODE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                //We have the permission
-//            } else {
-//                //We do not have the permission..
-//
-//            }
-//        }
-//        int BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002;
-//        if (requestCode == BACKGROUND_LOCATION_ACCESS_REQUEST_CODE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                //We have the permission
-//                Toast.makeText(this, "You can add geofences...", Toast.LENGTH_SHORT).show();
-//            } else {
-//                //We do not have the permission..
-//                Toast.makeText(this, "Background location access is neccessary for geofences to trigger...", Toast.LENGTH_SHORT).show();
-//            }
-//        }
     }
 
     public void qrCam(ZBarScannerView LocalmScannerView) {
@@ -488,14 +461,14 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
         FirebaseDatabase.getInstance().getReference().child("adminInfo").child("QR").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Infected").getValue() != null) {
-                    inData3 = dataSnapshot.child("Infected").getValue().toString();
+                if (dataSnapshot.child("Infected").exists()) {
+                    inData3 = Objects.requireNonNull(dataSnapshot.child("Infected").getValue()).toString();
                 }
-                if (dataSnapshot.child("Suspected").getValue() != null) {
-                    susData2 = dataSnapshot.child("Suspected").getValue().toString();
+                if (dataSnapshot.child("Suspected").exists()) {
+                    susData2 = Objects.requireNonNull(dataSnapshot.child("Suspected").getValue()).toString();
                 }
-                if (dataSnapshot.child("Not infected").getValue() != null) {
-                    notInData1 = dataSnapshot.child("Not infected").getValue().toString();
+                if (dataSnapshot.child("Not infected").exists()) {
+                    notInData1 = Objects.requireNonNull(dataSnapshot.child("Not infected").getValue()).toString();
                 }
             }
 
@@ -544,10 +517,10 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
         return sharedPreferences.getString(name, "");
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
+    private boolean isMyServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
+            if (LocationService.class.getName().equals(service.service.getClassName())) {
                 Log.i("Service status", "Running");
                 return true;
             }
@@ -566,16 +539,16 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
         return (int) px;
     }
 
-    protected void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(loc)
-                .build();
-    }
+//    protected void createLocationRequest() {
+//        mLocationRequest = new LocationRequest();
+//        mLocationRequest.setInterval(INTERVAL);
+//        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        mGoogleApiClient = new GoogleApiClient.Builder(context)
+//                .addApi(LocationServices.API)
+//                .addConnectionCallbacks(loc)
+//                .build();
+//    }
 
     public class Loc implements LocationListener, GoogleApiClient.ConnectionCallbacks {
         public void create() {
@@ -617,16 +590,10 @@ public class UserDashboard extends AppCompatActivity implements ZBarScannerView.
                 return;
             }
 
-            this.doubleBackToExitPressedOnce = true;
+            doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
+            new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
         }
     }
 }

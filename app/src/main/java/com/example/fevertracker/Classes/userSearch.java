@@ -2,12 +2,17 @@ package com.example.fevertracker.Classes;
 
 import android.net.Uri;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class userSearch {
-    private String name, passport, id, mImageUrl;
+    private String name, passport, id, mImageUrl = "";
     private int status;
+
+    public void setmImageUrl(String mImageUrl) {
+        this.mImageUrl = mImageUrl;
+    }
 
     public String getmImageUrl() {
         return mImageUrl;
@@ -40,6 +45,19 @@ public class userSearch {
         this.passport = passport;
         this.id = id;
         this.status = status;
-        this.mImageUrl= FirebaseStorage.getInstance().getReference("uploads").child(id).getDownloadUrl().toString();
+    }
+
+    public userSearch(String name, String passport, String id, String mImageUrl, int status) {
+        if (name.trim().equals("")) {
+            name = "No Name";
+        }
+        if (passport.trim().equals("")) {
+            passport = "No Passport";
+        }
+        this.name = name;
+        this.passport = passport;
+        this.id = id;
+        this.status = status;
+        this.mImageUrl = mImageUrl;
     }
 }

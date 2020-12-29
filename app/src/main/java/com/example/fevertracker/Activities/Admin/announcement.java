@@ -25,12 +25,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -43,11 +41,12 @@ import com.example.fevertracker.CustomWidgets.CustomEditText;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -57,16 +56,15 @@ public class announcement extends AppCompatActivity {
     ImageView textColor, backgroundColor;
     ImageButton bold, italic, underLine, textC, textB;
     int posToEdit = 0;
-    long temp, max;
     CustomEditText announcementE;
     ListView announcementList;
     ScrollView scrollViewE;
-    LinearLayout style, textColorlist, backgroundColorlist;
+    LinearLayout style, textColorList, backgroundColorList;
     boolean editMode = false;
     StyleCallback styleCallback = new StyleCallback();
-    announcement anouncement = this;
+    announcement announcement = this;
     String ColorString = "#000000", bColorString = "#FFFFFF";
-    boolean styleOpened = false, isbold = false, isItalic = false, isUnder = false, removeSelection = false, textCOpened = false, textBOpened = false, selected = true, editpost = false;
+    boolean styleOpened = false, isBold = false, isItalic = false, isUnder = false, removeSelection = false, textCOpened = false, textBOpened = false, selected = true, editPost = false;
     Context context = this;
 
 
@@ -75,20 +73,20 @@ public class announcement extends AppCompatActivity {
         Toast.makeText(this, "Post is deleted", Toast.LENGTH_SHORT).show();
     }
 
-    public void ecitPost(int pos) {
-        editpost = true;
+    public void editPost(int pos) {
+        editPost = true;
         posToEdit = pos;
         EditPost(pos);
     }
 
     public void bold(View view) {
-        if (isbold) {
+        if (isBold) {
             int startSelection = announcementE.getSelectionStart();
             int endSelection = announcementE.getSelectionEnd();
             Spannable spannable = announcementE.getText();
             StyleSpanRemover spanRemover = new StyleSpanRemover();
             spanRemover.RemoveStyle(spannable, startSelection, endSelection, Typeface.BOLD);
-            isbold = false;
+            isBold = false;
             bold.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         } else {
             CharacterStyle cs;
@@ -101,7 +99,7 @@ public class announcement extends AppCompatActivity {
             selected = false;
             announcementE.setText(ssb);
             announcementE.setSelection(start, end);
-            isbold = true;
+            isBold = true;
             selected = true;
             bold.setBackgroundResource(R.drawable.ripple_grey);
         }
@@ -161,47 +159,47 @@ public class announcement extends AppCompatActivity {
 
     public void textColor(View view) {
         if (textBOpened) {
-            slideViewWidth(backgroundColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(backgroundColorList, dpToPx(310), 0, 300);
             textBOpened = false;
             textB.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
 
         if (!textCOpened) {
-            slideViewWidth(textColorlist, 0, dpToPx(310), 300);
+            slideViewWidth(textColorList, 0, dpToPx(310), 300);
             textCOpened = true;
             textC.setBackgroundResource(R.drawable.ripple_grey);
         } else {
-            slideViewWidth(textColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(textColorList, dpToPx(310), 0, 300);
             textCOpened = false;
             textC.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
     }
 
     public void black(View view) {
-        colorChoosed("#000000");
+        colorChosen("#000000");
     }
 
     public void red(View view) {
-        colorChoosed("#f44235");
+        colorChosen("#f44235");
     }
 
     public void blue(View view) {
-        colorChoosed("#2296f3");
+        colorChosen("#2296f3");
     }
 
     public void green(View view) {
-        colorChoosed("#4caf50");
+        colorChosen("#4caf50");
     }
 
     public void yellow(View view) {
-        colorChoosed("#ffc100");
+        colorChosen("#ffc100");
     }
 
     public void grey(View view) {
-        colorChoosed("#9e9e9e");
+        colorChosen("#9e9e9e");
     }
 
-    public void colorChoosed(String colorString) {
+    public void colorChosen(String colorString) {
         selected = false;
         CharacterStyle cs;
         ColorString = colorString;
@@ -222,12 +220,12 @@ public class announcement extends AppCompatActivity {
 
     public void closeColors() {
         if (textBOpened) {
-            slideViewWidth(backgroundColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(backgroundColorList, dpToPx(310), 0, 300);
             textBOpened = false;
             textB.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
         if (textCOpened) {
-            slideViewWidth(textColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(textColorList, dpToPx(310), 0, 300);
             textCOpened = false;
             textC.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
@@ -235,17 +233,17 @@ public class announcement extends AppCompatActivity {
 
     public void textBack(View view) {
         if (textCOpened) {
-            slideViewWidth(textColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(textColorList, dpToPx(310), 0, 300);
             textCOpened = false;
             textC.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
 
         if (!textBOpened) {
-            slideViewWidth(backgroundColorlist, 0, dpToPx(310), 300);
+            slideViewWidth(backgroundColorList, 0, dpToPx(310), 300);
             textBOpened = true;
             textB.setBackgroundResource(R.drawable.ripple_grey);
         } else {
-            slideViewWidth(backgroundColorlist, dpToPx(310), 0, 300);
+            slideViewWidth(backgroundColorList, dpToPx(310), 0, 300);
             textBOpened = false;
             textB.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
         }
@@ -268,26 +266,26 @@ public class announcement extends AppCompatActivity {
     }
 
     public void redB(View view) {
-        bColorChoosed("#ef9a9a");
+        bColorChosen("#ef9a9a");
     }
 
     public void blueB(View view) {
-        bColorChoosed("#90caf9");
+        bColorChosen("#90caf9");
     }
 
     public void greenB(View view) {
-        bColorChoosed("#a5d6a7");
+        bColorChosen("#a5d6a7");
     }
 
     public void yellowB(View view) {
-        bColorChoosed("#ffe082");
+        bColorChosen("#ffe082");
     }
 
     public void greyB(View view) {
-        bColorChoosed("#e0e0e0");
+        bColorChosen("#e0e0e0");
     }
 
-    public void bColorChoosed(String colorString) {
+    public void bColorChosen(String colorString) {
         selected = false;
         CharacterStyle cs;
         bColorString = colorString;
@@ -324,6 +322,7 @@ public class announcement extends AppCompatActivity {
 
     public void closeStyle() {
         if (styleOpened) {
+            closeColors();
             slideViewHeight(style, dpToPx(54), 0, 300);
             styleOpened = false;
             styleCallback.setStyleOpened(false);
@@ -341,11 +340,11 @@ public class announcement extends AppCompatActivity {
 
     public void cancel(View view) {
         editMode = false;
-        editpost = false;
+        editPost = false;
         closeStyle();
         closeColors();
         hideKeyBoard(announcementE);
-        floating.setImageResource(R.drawable.ic_add_black_24dp);
+        floating.setImageResource(R.drawable.ic_baseline_add_24);
         announcementList.setVisibility(View.VISIBLE);
         scrollViewE.setVisibility(View.GONE);
     }
@@ -355,7 +354,7 @@ public class announcement extends AppCompatActivity {
             editMode = true;
             announcementList.setVisibility(View.GONE);
             scrollViewE.setVisibility(View.VISIBLE);
-            floating.setImageResource(R.drawable.ic_save_black_24dp);
+            floating.setImageResource(R.drawable.ic_baseline_save_24);
             selected = false;
             showSoftKeyboard(announcementE);
             announcementE.setText("");
@@ -364,11 +363,10 @@ public class announcement extends AppCompatActivity {
             hideKeyBoard(announcementE);
             closeStyle();
             closeColors();
-            floating.setImageResource(R.drawable.ic_add_black_24dp);
-            if (editpost) {
+            floating.setImageResource(R.drawable.ic_baseline_add_24);
+            if (editPost) {
 
-                DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("adminInfo");
-                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("adminInfo").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         FirebaseDatabase.getInstance().getReference().child("adminInfo").child("announcement").child(Long.toString(announce.get(posToEdit).getId())).removeValue();
@@ -386,7 +384,7 @@ public class announcement extends AppCompatActivity {
                 saveAnn();
             }
             editMode = false;
-            editpost = false;
+            editPost = false;
             announcementList.setVisibility(View.VISIBLE);
             scrollViewE.setVisibility(View.GONE);
         }
@@ -404,7 +402,7 @@ public class announcement extends AppCompatActivity {
             announcementList.setVisibility(View.GONE);
             scrollViewE.setVisibility(View.VISIBLE);
             selected = false;
-            floating.setImageResource(R.drawable.ic_save_black_24dp);
+            floating.setImageResource(R.drawable.ic_baseline_save_24);
             announcementE.setText(announce.get(pos).getAnnounce());
             selected = true;
         }
@@ -415,22 +413,10 @@ public class announcement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_for_admin);
 
-        TypedValue tv = new TypedValue();
-        FrameLayout frameLayout = findViewById(R.id.dummy);
-        LinearLayout toolbar = findViewById(R.id.select);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-        RelativeLayout.LayoutParams param2 = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            params.height = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics()) + dpToPx(4);
-            param2.height = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        }
-        frameLayout.setLayoutParams(param2);
-        toolbar.setLayoutParams(params);
-
         floating = findViewById(R.id.edit);
-        floating.setImageResource(R.drawable.ic_add_black_24dp);
-        textColorlist = findViewById(R.id.textColorlist);
-        backgroundColorlist = findViewById(R.id.backgroundColorlist);
+        floating.setImageResource(R.drawable.ic_baseline_add_24);
+        textColorList = findViewById(R.id.textColorlist);
+        backgroundColorList = findViewById(R.id.backgroundColorlist);
         announcementList = findViewById(R.id.announcementList);
         textC = findViewById(R.id.textC);
         textB = findViewById(R.id.textB);
@@ -442,9 +428,9 @@ public class announcement extends AppCompatActivity {
         announcementE = findViewById(R.id.announceTextE);
         style = findViewById(R.id.style);
         styleCallback.setBodyView(announcementE);
-        styleCallback.setAnouncement(anouncement);
+        styleCallback.setAnouncement(announcement);
         announcementE.setCustomSelectionActionModeCallback(styleCallback);
-        announcementE.setAnouncement(anouncement);
+        announcementE.setAnouncement(announcement);
         scrollViewE = findViewById(R.id.editMode);
         announcementE.addTextChangedListener(new TextWatcher() {
             @Override
@@ -454,7 +440,7 @@ public class announcement extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setTextSpan(start, before, count);
+                setTextSpan(start, count);
             }
 
             @Override
@@ -465,23 +451,27 @@ public class announcement extends AppCompatActivity {
 //        String colorHex = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.colorPrimary) & 0x00ffffff);
 
         announcementE.setHighlightColor(Color.parseColor("#782F5D87"));
-        DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("adminInfo");
-        reff.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("adminInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (announce != null) {
                     announce.clear();
                 }
+                ArrayList<Long> posts = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.child("announcement").getChildren()) {
                     if (ds.getKey() != null) {
                         if (dataSnapshot.child("announcement").child(ds.getKey()).getValue() != null) {
-                            announce.add(new Announce(Html.fromHtml(dataSnapshot.child("announcement").child(ds.getKey()).getValue().toString()), NumricOf(ds.getKey())));
+                            posts.add(NumericOf(ds.getKey()));
                         }
                     }
                 }
+                Collections.sort(posts, Collections.reverseOrder());
+                for (int i = 0; i < posts.size(); i++) {
+                    announce.add(new Announce(Html.fromHtml(Objects.requireNonNull(dataSnapshot.child("announcement").child(Long.toString(posts.get(i))).getValue()).toString()), posts.get(i)));
+                }
 
                 announceAdapter arrayAdapter = new announceAdapter(context, R.layout.announce, announce);
-                arrayAdapter.setAnouncement(anouncement);
+                arrayAdapter.setAnouncement(announcement);
                 announcementList.setAdapter(arrayAdapter);
 //              Toast.makeText(context,"Announcement is edited",Toast.LENGTH_SHORT).show();
             }
@@ -492,17 +482,17 @@ public class announcement extends AppCompatActivity {
         });
     }
 
-    private void setTextSpan(int start, int lengthBefore, int lengthAfter) {
-        if (isbold && selected) {
-            announcementE.getText().setSpan(new StyleSpan(Typeface.BOLD), start, start + lengthAfter, Spanned
+    private void setTextSpan(int start, int lengthAfter) {
+        if (isBold && selected) {
+            Objects.requireNonNull(announcementE.getText()).setSpan(new StyleSpan(Typeface.BOLD), start, start + lengthAfter, Spanned
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (isItalic && selected) {
-            announcementE.getText().setSpan(new StyleSpan(Typeface.ITALIC), start, start + lengthAfter, Spanned
+            Objects.requireNonNull(announcementE.getText()).setSpan(new StyleSpan(Typeface.ITALIC), start, start + lengthAfter, Spanned
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (isUnder && selected) {
-            announcementE.getText().setSpan(new UnderlineSpan(), start, start + lengthAfter, Spanned
+            Objects.requireNonNull(announcementE.getText()).setSpan(new UnderlineSpan(), start, start + lengthAfter, Spanned
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (!isUnder && selected) {
@@ -511,7 +501,7 @@ public class announcement extends AppCompatActivity {
             spanRemover.RemoveOne(spannable, start, start + lengthAfter, UnderlineSpan.class);
         }
         if (selected) {
-            announcementE.getText().setSpan(new ForegroundColorSpan(Color.parseColor(ColorString)), start, start + lengthAfter, Spanned
+            Objects.requireNonNull(announcementE.getText()).setSpan(new ForegroundColorSpan(Color.parseColor(ColorString)), start, start + lengthAfter, Spanned
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             if (bColorString.compareTo("#FFFFFF") != 0) {
                 announcementE.getText().setSpan(new BackgroundColorSpan(Color.parseColor(bColorString)), start, start + lengthAfter, Spanned
@@ -529,10 +519,10 @@ public class announcement extends AppCompatActivity {
                     backgroundColor.setBackgroundColor(Color.parseColor(bColorString));
                 }
                 if (!isBold(ssb, start, end) || removeSelection) {
-                    isbold = false;
+                    isBold = false;
                     bold.setBackgroundResource(R.drawable.ripple_effect_rec_no_background);
                 } else {
-                    isbold = true;
+                    isBold = true;
                     bold.setBackgroundResource(R.drawable.ripple_grey);
                 }
 
@@ -559,42 +549,34 @@ public class announcement extends AppCompatActivity {
 
     public Boolean isBold(SpannableStringBuilder ssb, int start, int end) {
         int next;
-        boolean continu = true;
-        for (int i = start; i < end && continu; i = next) {
-            continu = false;
+        boolean continued = true;
+        for (int i = start; i < end && continued; i = next) {
+            continued = false;
             next = ssb.nextSpanTransition(i, ssb.length(), CharacterStyle.class);
             StyleSpan[] spans = ssb.getSpans(i, next, StyleSpan.class);
-            for (int j = 0; j < spans.length; j++) {
-                if (spans[j].getStyle() == Typeface.BOLD) {
-                    continu = true;
+            for (StyleSpan span : spans) {
+                if (span.getStyle() == Typeface.BOLD) {
+                    continued = true;
                 }
             }
         }
-        if (continu) {
-            return true;
-        } else {
-            return false;
-        }
+        return continued;
     }
 
     public Boolean isItalic(SpannableStringBuilder ssb, int start, int end) {
         int next;
-        boolean continu = true;
-        for (int i = start; i < end && continu; i = next) {
-            continu = false;
+        boolean continued = true;
+        for (int i = start; i < end && continued; i = next) {
+            continued = false;
             next = ssb.nextSpanTransition(i, ssb.length(), CharacterStyle.class);
             StyleSpan[] spans = ssb.getSpans(i, next, StyleSpan.class);
-            for (int j = 0; j < spans.length; j++) {
-                if (spans[j].getStyle() == Typeface.ITALIC) {
-                    continu = true;
+            for (StyleSpan span : spans) {
+                if (span.getStyle() == Typeface.ITALIC) {
+                    continued = true;
                 }
             }
         }
-        if (continu) {
-            return true;
-        } else {
-            return false;
-        }
+        return continued;
     }
 
     public Boolean isUnder(SpannableStringBuilder ssb, int start, int end) {
@@ -632,13 +614,9 @@ public class announcement extends AppCompatActivity {
         /* We use an update listener which listens to each tick
          * and manually updates the height of the view  */
 
-        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation1) {
-                Integer value = (Integer) animation1.getAnimatedValue();
-                view.getLayoutParams().height = value.intValue();
-                view.requestLayout();
-            }
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().height = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
         });
 
         /*  We use an animationSet to play the animation  */
@@ -658,13 +636,9 @@ public class announcement extends AppCompatActivity {
         /* We use an update listener which listens to each tick
          * and manually updates the height of the view  */
 
-        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation1) {
-                Integer value = (Integer) animation1.getAnimatedValue();
-                view.getLayoutParams().width = value.intValue();
-                view.requestLayout();
-            }
+        slideAnimator.addUpdateListener(animation1 -> {
+            view.getLayoutParams().width = (Integer) animation1.getAnimatedValue();
+            view.requestLayout();
         });
 
         /*  We use an animationSet to play the animation  */
@@ -675,7 +649,7 @@ public class announcement extends AppCompatActivity {
         animationSet.start();
     }
 
-    public long NumricOf(String str) {
+    public long NumericOf(String str) {
         try {
             return Long.parseLong(str);
         } catch (Exception ignored) {
@@ -712,9 +686,9 @@ public class announcement extends AppCompatActivity {
     public void onBackPressed() {
         if (editMode) {
             editMode = false;
-            editpost = false;
+            editPost = false;
             hideKeyBoard(announcementE);
-            floating.setImageResource(R.drawable.ic_add_black_24dp);
+            floating.setImageResource(R.drawable.ic_baseline_add_24);
             announcementList.setVisibility(View.VISIBLE);
             scrollViewE.setVisibility(View.GONE);
             closeStyle();

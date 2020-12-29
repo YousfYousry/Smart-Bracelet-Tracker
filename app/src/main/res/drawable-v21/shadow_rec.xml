@@ -61,7 +61,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/backGroundColor" />
 
             <corners android:topLeftRadius="20dp"
                 android:topRightRadius="20dp"/>
