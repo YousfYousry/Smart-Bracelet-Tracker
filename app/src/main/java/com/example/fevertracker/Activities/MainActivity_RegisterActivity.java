@@ -101,7 +101,9 @@ public class MainActivity_RegisterActivity extends AppCompatActivity {
     }
 
     public void Forgot(View view){
-        Toast.makeText(activity, "Under maintenance!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getBaseContext(), ForgotPasswordActivity.class);
+        intent.putExtra("EmailAddress", emailE.getText().toString());
+        startActivity(intent);
     }
 
     public void Register(View view) {
